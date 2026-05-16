@@ -4,14 +4,25 @@ namespace App\Entity;
 
 use App\Repository\UsuarioRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UsuarioRepository::class)]
-class Usuario
+
+
+
+class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+
+    #[ORM\Column]
+    private array $roles = [];
 
     #[ORM\Column(length: 255)]
     private ?string $nombre = null;
@@ -33,6 +44,18 @@ class Usuario
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, Evento>
+     */
+    #[ORM\ManyToMany(targetEntity: Evento::class, inversedBy: 'usuarios')]
+    private Collection $eventos;
+
+    public function __construct()
+    {
+        $this->eventos = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -122,4 +145,44 @@ class Usuario
 
         return $this;
     }
+
+   public function getUserIdentifier(): string
+    {
+    return $this->email; 
+    }
+    public function getRoles(): array
+{
+    
+    return ['ROLE_USER'];
+}
+
+public function eraseCredentials(): void
+{
+    
+}
+
+/**
+ * @return Collection<int, Evento>
+ */
+public function getEventos(): Collection
+{
+    return $this->eventos;
+}
+
+public function addEvento(Evento $evento): static
+{
+    if (!$this->eventos->contains($evento)) {
+        $this->eventos->add($evento);
+    }
+
+    return $this;
+}
+
+public function removeEvento(Evento $evento): static
+{
+    $this->eventos->removeElement($evento);
+
+    return $this;
+}
+
 }

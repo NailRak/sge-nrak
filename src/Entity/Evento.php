@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Common\Util;
@@ -14,6 +16,9 @@ class Evento
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    
+    
 
     #[ORM\Column(length: 255)]
     private ?string $titulo = null;
@@ -36,11 +41,34 @@ class Evento
     #[ORM\Column(length: 255)]
     private ?string $idioma = null;
 
+    /**
+     * @var Collection<int, Usuario>
+     */
+    #[ORM\ManyToMany(targetEntity: Usuario::class, mappedBy: 'eventos')]
+    private Collection $usuarios;
+
+    #[ORM\ManyToOne(inversedBy: 'eventos')]
+    private ?Disertante $Disertante = null;
+
+    public function __construct()
+    {
+        $this->usuarios = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
+    public function getDisertante(): ?Disertante
+   {
+       return $this->disertante;
+   }
 
+    public function setDisertante(?Disertante $disertante): static
+    {
+    $this->disertante = $disertante;
+       return $this;
+    } 
     public function getTitulo(): ?string
     {
         return $this->titulo;
@@ -122,6 +150,33 @@ class Evento
     public function setIdioma(string $idioma): static
     {
         $this->idioma = $idioma;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Usuario>
+     */
+    public function getUsuarios(): Collection
+    {
+        return $this->usuarios;
+    }
+
+    public function addUsuario(Usuario $usuario): static
+    {
+        if (!$this->usuarios->contains($usuario)) {
+            $this->usuarios->add($usuario);
+            $usuario->addEvento($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsuario(Usuario $usuario): static
+    {
+        if ($this->usuarios->removeElement($usuario)) {
+            $usuario->removeEvento($this);
+        }
 
         return $this;
     }

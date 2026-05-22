@@ -3,14 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\UsuarioRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UsuarioRepository::class)]
-
 
 
 class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
@@ -19,10 +18,6 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-
-    #[ORM\Column]
-    private array $roles = [];
 
     #[ORM\Column(length: 255)]
     private ?string $nombre = null;
@@ -49,13 +44,12 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Evento>
      */
     #[ORM\ManyToMany(targetEntity: Evento::class, inversedBy: 'usuarios')]
-    private Collection $eventos;
+    private Collection $evento;
 
     public function __construct()
     {
-        $this->eventos = new ArrayCollection();
+        $this->evento = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -146,43 +140,40 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-   public function getUserIdentifier(): string
+    /**
+     * @return Collection<int, Evento>
+     */
+    public function getEvento(): Collection
     {
-    return $this->email; 
+        return $this->evento;
+    }
+
+    public function addEvento(Evento $evento): static
+    {
+        if (!$this->evento->contains($evento)) {
+            $this->evento->add($evento);
+        }
+
+        return $this;
+    }
+
+    public function removeEvento(Evento $evento): static
+    {
+        $this->evento->removeElement($evento);
+
+        return $this;
     }
     public function getRoles(): array
-{
-    
-    return ['ROLE_USER'];
-}
-
-public function eraseCredentials(): void
-{
-    
-}
-
-/**
- * @return Collection<int, Evento>
- */
-public function getEventos(): Collection
-{
-    return $this->eventos;
-}
-
-public function addEvento(Evento $evento): static
-{
-    if (!$this->eventos->contains($evento)) {
-        $this->eventos->add($evento);
+    {
+        return ['ROLE_USER'];
     }
 
-    return $this;
-}
+    public function eraseCredentials(): void
+    {
+    }
 
-public function removeEvento(Evento $evento): static
-{
-    $this->eventos->removeElement($evento);
-
-    return $this;
-}
-
+    public function getUserIdentifier(): string
+   {
+        return $this->email;
+   }
 }

@@ -14,7 +14,6 @@ class Disertante
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -44,18 +43,19 @@ class Disertante
     /**
      * @var Collection<int, Evento>
      */
-    #[ORM\OneToMany(targetEntity: Evento::class, mappedBy: 'Disertante')]
+    #[ORM\OneToMany(targetEntity: Evento::class, mappedBy: 'disertante')]
     private Collection $eventos;
+
+    public function __construct()
+    {
+        $this->eventos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function __construct()
-    {
-        $this->eventos = new ArrayCollection();
-    }
     public function getNombre(): ?string
     {
         return $this->nombre;

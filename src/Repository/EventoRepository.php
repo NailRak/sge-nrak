@@ -40,4 +40,11 @@ class EventoRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findEventosAlfabeticamente()
+    {
+    return $this->createQueryBuilder('e')
+        ->orderBy('e.titulo', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
 }

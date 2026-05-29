@@ -149,6 +149,10 @@ class AppFixtures extends Fixture
                 $datos['ref'],
                 $disertante
             );
+            
+            $disertante->setDireccion(
+                $calles[array_rand($calles)] . ' ' . rand(100, 4000)
+            );
         }
 
         $manager->flush();

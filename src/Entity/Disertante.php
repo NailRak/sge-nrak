@@ -46,6 +46,9 @@ class Disertante
     #[ORM\OneToMany(targetEntity: Evento::class, mappedBy: 'disertante')]
     private Collection $eventos;
 
+    #[ORM\Column(length: 255)]
+    private ?string $direccion = null;
+
     public function __construct()
     {
         $this->eventos = new ArrayCollection();
@@ -180,5 +183,26 @@ class Disertante
         }
 
         return $this;
+    }
+
+    public function getDireccion(): ?string
+    {
+        return $this->direccion;
+    }
+
+    public function setDireccion(string $direccion): static
+    {
+        $this->direccion = $direccion;
+
+        return $this;
+    }
+    public function getNombreCompleto(): string
+    {
+    return $this->nombre.' '.$this->apellido;
+    }
+
+    public function __toString(): string
+    {
+    return $this->getNombreCompleto();
     }
 }

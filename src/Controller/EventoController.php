@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\EventoRepository;
+
+final class EventoController extends AbstractController
+{
+    
+    #[Route('/eventos', name: 'app_eventos')]
+    public function eventos(EventoRepository $repository): Response
+    {
+    $eventos = $repository->findEventosAlfabeticamente();
+
+    return $this->render('evento/eventos.html.twig', [
+        'eventos' => $eventos
+    ]);
+    }
+
+    #[Route('/evento/{slug}', name: 'app_evento_detalle')]
+    public function evento(string $slug, EventoRepository $repository): Response
+    {
+    $evento = $repository->findOneBy(['slug' => $slug]);
+
+    if (!$evento) {
+        throw $this->createNotFoundException('No existe el evento solicitado');
+    }
+
+    return $this->render('evento/evento.html.twig', [
+        'evento' => $evento
+    ]);
+}
+}

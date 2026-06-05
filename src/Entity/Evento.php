@@ -42,11 +42,16 @@ class Evento
     #[ORM\ManyToOne(inversedBy: 'eventos')]
     private ?Disertante $disertante = null;
 
+    #[ORM\Column(length: 20)]
+    private ?string $estado = 'activo';
+
     /**
      * @var Collection<int, Usuario>
      */
     #[ORM\ManyToMany(targetEntity: Usuario::class, mappedBy: 'evento')]
     private Collection $usuarios;
+
+
 
     public function __construct()
     {
@@ -195,4 +200,15 @@ class Evento
     {
     return $this->titulo;
     }
+
+    public function getEstado(): ?string
+{
+    return $this->estado;
+}
+
+public function setEstado(string $estado): self
+{
+    $this->estado = $estado;
+    return $this;
+}
 }

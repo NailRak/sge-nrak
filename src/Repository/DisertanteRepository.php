@@ -40,4 +40,12 @@ class DisertanteRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findDisertantesAlfabeticamente(): array
+    {
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.nombre', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -9,6 +9,15 @@
 <div class="container mt-4">
 
     <h1>Gestión de Eventos</h1>
+{% for mensaje in app.flashes('success') %}
+
+    <div class="alert alert-success">
+
+        {{ mensaje }}
+
+    </div>
+
+{% endfor %}
 
     <table class="table table-bordered table-striped">
 

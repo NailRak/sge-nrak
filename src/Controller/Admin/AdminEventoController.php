@@ -76,11 +76,17 @@ public function borrar(
 
     $entityManager->flush();
 
-    return $this->render(
-        'admin/evento/borrar.html.twig',
-        [
-            'evento' => $evento
-        ]
-    );
+   $this->addFlash(
+    'success',
+    sprintf(
+        "El evento '%s' se ha borrado correctamente.",
+        $evento->getTitulo()
+    )
+);
+
+return $this->redirectToRoute(
+    'admin_evento_listar'
+);
 }
+
 }

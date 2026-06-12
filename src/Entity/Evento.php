@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use App\Common\Util;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: EventoRepository::class)]
@@ -17,6 +18,8 @@ class Evento
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    
 
     #[ORM\Column(length: 255)]
     private ?string $titulo = null;
@@ -50,6 +53,8 @@ class Evento
      */
     #[ORM\ManyToMany(targetEntity: Usuario::class, mappedBy: 'evento')]
     private Collection $usuarios;
+
+
 
 
 

@@ -1,4 +1,13 @@
 <h1>Symfony 7.4 - Eventos</h1>
+{% for mensaje in app.flashes('info') %}
+
+    <div class="alert alert-info">
+
+        {{ mensaje }}
+
+    </div>
+
+{% endfor %}
 
 <div class="row">
 

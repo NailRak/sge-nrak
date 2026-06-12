@@ -1,0 +1,36 @@
+<h1>Nuevo Evento</h1>
+
+{% for evento in eventos %}
+
+
+{% for mensaje in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ mensaje }}
+    </div>
+{% endfor %}
+
+{{ form_start(form) }}
+
+    <div class="mb-3">
+        {{ form_label(form.titulo) }}
+        {{ form_widget(form.titulo) }}
+        {{ form_errors(form.titulo) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.fecha) }}
+        {{ form_widget(form.fecha) }}
+        {{ form_errors(form.fecha) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.descripcion) }}
+        {{ form_widget(form.descripcion) }}
+        {{ form_errors(form.descripcion) }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Guardar Evento
+    </button>
+
+{{ form_end(form) }}

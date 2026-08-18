@@ -1,21 +1,14 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class AbstractBaseController extends AbstractController
+final class AbstractAdminBaseController extends AbstractController
 {
-   
-// public function addInfoMessage($mensaje){
-//     $this->addFlash(
-//     'info',
-//     '$mensaje'
-// );
-// }
- protected function addInfoMessage(
+    protected function addInfoMessage(
         string $message
     ): void
     {

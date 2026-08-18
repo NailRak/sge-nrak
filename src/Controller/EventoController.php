@@ -33,13 +33,6 @@ final class EventoController extends AbstractController
 
     $evento = $repository->findOneBy(['slug' => $slug]);
 
-     $this->addFlash('info',
-    sprintf(
-        "Has leído sobre el evento '%s' a las %s.",
-        $evento->getTitulo(),
-        date('H:i:s')
-    )
-);
 
 
     if (!$evento) {
@@ -50,7 +43,13 @@ final class EventoController extends AbstractController
         'evento' => $evento
     ]);
     
-
+   $this->addInfoMessage(
+    sprintf(
+        "Has leído sobre el evento '%s' a las %s.",
+        $evento->getTitulo(),
+        date('H:i:s')
+    )
+);
 
 }
 // #[Route('/evento/nuevo', name: 'evento_nuevo')]

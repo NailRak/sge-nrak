@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/admin/evento')]
-class AdminEventoController extends AbstractController
+abstract class AbstractAdminBaseController extends AbstractAdminBaseController
 {
     #[Route(
         '/listar',

@@ -1,5 +1,20 @@
-<h1>{{ evento.titulo }}</h1>
 
+{% extends 'frontend/layout.html.twig' %}
+
+{% block title %}Eventos{% endblock %}
+
+{% block contenido %}
+
+{% for evento in eventos %}
+
+    <h3>{{ evento.titulo }}</h3>
+ {{ evento.titulo|title }}
+
+{% endfor %}
+
+{% endblock %}
+
+{{ evento.descripcion|slice(0,150) }}
 <p>{{ evento.descripcion }}</p>
 
 <div>
@@ -9,7 +24,7 @@
 
 <div>
     <strong>Hora:</strong>
-    {{ evento.hora|date('H:i') }}
+    {{ evento.fecha|date('d/m/Y') }}
     -
     {{ evento.horaFinalizacion|date('H:i') }}
 </div>
@@ -23,5 +38,6 @@
     <strong>Disertante:</strong>
     <a href="{{ path('app_disertantes') }}">
     {{ evento.disertante }}
+    {{ disertante.biografia|raw }}
 </a>
 </div>

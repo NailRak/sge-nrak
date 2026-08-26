@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class AbstractBaseController extends AbstractController
+class AbstractBaseController extends AbstractController
 {
    
 // public function addInfoMessage($mensaje){

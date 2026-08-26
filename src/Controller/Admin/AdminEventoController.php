@@ -3,13 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Repository\EventoRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/admin/evento')]
-abstract class AbstractAdminBaseController extends AbstractAdminBaseController
+class AdminEventoController extends AbstractAdminBaseController
 {
     #[Route(
         '/listar',

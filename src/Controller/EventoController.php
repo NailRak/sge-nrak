@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Evento;
 
-final class EventoController extends AbstractController
+class EventoController extends AbstractController
 {
     
     #[Route('/eventos', name: 'app_eventos')]

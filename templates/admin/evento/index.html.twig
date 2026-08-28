@@ -1,5 +1,7 @@
 {% extends 'admin/layout-admin.html.twig' %}
 
+{% block content %}
+
 <table>
     {% for evento in eventos %}
         <tr>
@@ -7,3 +9,4 @@
         </tr>
     {% endfor %}
 </table>
+{% endblock %}

@@ -1,3 +1,11 @@
+{% extends 'frontend/layout.html.twig' %}
+
+{% block header %}
+   {{parent()}} 
+{% endblock %}
+
+{% block body %}
+ {% block contenido %}
 <h1>Symfony 7.4 - Eventos</h1>
 {% for mensaje in app.flashes('info') %}
 
@@ -43,20 +51,7 @@
         </ul>
     </div>
 
- 
-       {% extends 'frontend/layout.html.twig' %}
-
-{% block contenido %}
-
-    <h2>Próximos eventos</h2>
-
-    {% for evento in eventos %}
-        {% include 'evento/_card.html.twig' with {
-            evento: evento
-        } %}
-    {% endfor %}
-
-{% endblock %}
-    
 
 </div>
+{% endblock %}
+{% endblock %}

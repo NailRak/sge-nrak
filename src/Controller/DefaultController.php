@@ -22,12 +22,12 @@ class DefaultController extends AbstractController
     // {
     //     return $this->render('estatica/' . $pagina . '.html.twig');
     // }
-
     #[Route('/', name: 'portada')]
     public function portada(EntityManagerInterface $em): Response
     {
         $eventos = $em->getRepository(Evento::class)->findAll();
-
+        
+        
         shuffle($eventos);
 
         $eventos = array_slice($eventos, 0, 8);
@@ -36,6 +36,7 @@ class DefaultController extends AbstractController
             'eventosCol1' => array_slice($eventos, 0, 4),
             'eventosCol2' => array_slice($eventos, 4, 4),
         ]);
+       
     }
     
      #[Route('/evento/{slug}', name: 'app_evento_detalle')]

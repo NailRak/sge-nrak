@@ -33,8 +33,6 @@ class EventoController extends AbstractController
 
     $evento = $repository->findOneBy(['slug' => $slug]);
 
-
-
     if (!$evento) {
         throw $this->createNotFoundException('No existe el evento solicitado');
     }
@@ -52,30 +50,6 @@ class EventoController extends AbstractController
 );
 
 }
-// #[Route('/evento/nuevo', name: 'evento_nuevo')]
-// public function nuevo(
-//     Request $request,
-//     EntityManagerInterface $em
-// ): Response {
-//     $evento = new Evento();
 
-//     $form = $this->createFormBuilder($evento)
-//         ->add('titulo')
-//         ->add('fecha')
-//         ->getForm();
 
-//     $form->handleRequest($request);
-
-//     if ($form->isSubmitted() && $form->isValid()) {
-
-//         $em->persist($evento);
-//         $em->flush();
-
-//         return $this->redirectToRoute('evento_lista');
-//     }
-
-//     return $this->render('evento/nuevo.html.twig', [
-//         'form' => $form->createView()
-//     ]);
-// }
 }

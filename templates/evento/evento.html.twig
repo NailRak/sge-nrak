@@ -3,20 +3,13 @@
 
 {% block title %}Eventos{% endblock %}
 
+
+{% block body %}
+
 {% block contenido %}
 
-{% for evento in eventos %}
-
-    <h3>{{ evento.titulo }}</h3>
- {{ evento.titulo|title }}
-
-{% endfor %}
-
-{% endblock %}
 
 {{ evento.descripcion|slice(0,150) }}
-<p>{{ evento.descripcion }}</p>
-
 <div>
     <strong>Fecha:</strong>
     {{ evento.fecha|date('d/m/Y') }}
@@ -38,6 +31,11 @@
     <strong>Disertante:</strong>
     <a href="{{ path('app_disertantes') }}">
     {{ evento.disertante }}
-    {{ disertante.biografia|raw }}
-</a>
+    </a>
+    <br>
+    {{ evento.disertante.biografia|raw }}
+
 </div>
+{% endblock %}
+
+{% endblock %}

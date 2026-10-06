@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
+
 
 class EventoType extends AbstractType
 {
@@ -16,10 +18,24 @@ class EventoType extends AbstractType
         array $options
     ): void {
         $builder
-            ->add('titulo', TextType::class)
-            ->add('fecha', DateType::class, [
-                'widget' => 'single_text'
-            ]);
+            ->add('titulo', null, [
+        'label' => 'Nombre del evento',
+        'attr' => [
+            'placeholder' => 'Ingrese el nombre del evento',
+        ],
+    ])
+            ->add('descripcion', null, [
+        'label' => 'Descripción',
+        'attr' => [
+            'placeholder' => 'Ingrese una descripción',
+        ],
+    ])
+            ->add('fecha', null, [
+        'label' => 'Fecha del evento',
+    ])
+            ->add('hora', null, [
+        'label' => 'Hora del evento',
+    ]);
     }
 
     public function configureOptions(

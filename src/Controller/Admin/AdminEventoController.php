@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/admin/evento')]
-class AdminEventoController extends AbstractAdminBaseController
+class AdminEventoController extends AbstractController
 {
    
 
@@ -39,6 +39,11 @@ public function nuevo(
             $entityManager->persist($evento);
             $entityManager->flush();
 
+             $this->addFlash(
+        'success',
+        'Evento creado correctamente.'
+        );
+ 
             return $this->redirectToRoute('admin_evento_nuevo');
         }
 

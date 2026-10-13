@@ -1,3 +1,7 @@
+
+{% extends 'frontend/layout.html.twig' %}
+
+{% block body %}
 <h1>{{ disertante.nombreCompleto }}</h1>
 
 <p>{{ disertante.biografia }}</p>
@@ -37,3 +41,4 @@
 {% endfor %}
 
 </ul>
+{% endblock %}

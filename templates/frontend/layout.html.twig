@@ -1,23 +1,59 @@
 {% extends 'base.html.twig' %}
 
 {% block header %}
-    <h1>Eventos</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
 
-    <nav>
-        <a href="{{ path('portada') }}">Inicio</a>
-        <a href="{{ path('app_eventos') }}">Eventos</a>
-        <a href="{{ path('app_disertantes') }}">Disertantes</a>
+            <a class="navbar-brand" href="{{ path('portada') }}">
+                Eventos
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#menuPrincipal"
+                    aria-controls="menuPrincipal"
+                    aria-expanded="false"
+                    aria-label="Mostrar navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ path('portada') }}">
+                            Inicio
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ path('app_eventos') }}">
+                            Eventos
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ path('app_disertantes') }}">
+                            Disertantes
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
     </nav>
 {% endblock %}
 
 {% block body %}
+    <section class="container mt-4">
+        {% block contenido %}{% endblock %}
+    </section>
 
-<section>
-    {% block contenido %}{% endblock %}
-</section>
-
-<aside>
-    {% block lateral %}{% endblock %}
-</aside>
-
+    <aside class="container">
+        {% block lateral %}{% endblock %}
+    </aside>
 {% endblock %}

@@ -127,7 +127,8 @@ header {
     border-bottom: 3px solid #164B7B;
     color: #FFF;
     height: 50px;
-    margin-bottom: 1em;
+    
+    
 }
 
 header a {
@@ -648,4 +649,79 @@ footer a:hover {
 
 #admin form + a[href*="listar"]:after {
     content: ' ...';
+}
+header {
+    height: auto;
+    min-height: 0;
+    margin-bottom: 0;
+    padding: 0;
+    background: transparent;
+    border-bottom: none;
+    overflow: visible;
+}
+
+/* Barra de navegación */
+header nav.navbar {
+    background-color: #2262c2;
+    min-height: 70px;
+    padding: 0.75rem 1rem;
+    border-bottom: 3px solid #164B7B;
+}
+
+/* Título Eventos */
+header nav.navbar .navbar-brand {
+    display: inline-block;
+    color: #fff;
+    font-size: 1.25rem;
+    text-decoration: none;
+    padding: 0.5rem 1rem 0.5rem 0;
+}
+
+/* Enlaces del menú */
+header nav.navbar .navbar-nav .nav-link {
+    display: block;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    padding: 0.75rem;
+    text-decoration: none;
+}
+
+/* Efecto al pasar el mouse */
+header nav.navbar .navbar-nav .nav-link:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Evitar que los estilos antiguos de la cabecera
+   interfieran con Bootstrap */
+header nav.navbar ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+header nav.navbar ul li {
+    float: none;
+    margin-bottom: 0;
+}
+
+/* Contenido principal */
+main {
+    min-height: 300px;
+}
+
+main h1 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+/* Descripción de los eventos */
+main p {
+    line-height: 1.6;
+}
+
+/* Pie de página */
+footer {
+    margin-top: 2rem;
 }

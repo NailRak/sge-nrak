@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Gestión de Disertantes
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+
+    <h1>Gestión de Disertantes</h1>
+{% for mensaje in app.flashes('success') %}
+
+    <div class="alert alert-success">
+
+        {{ mensaje }}
+
+    </div>
+
+{% endfor %}
+
+    <table class="table table-bordered table-striped">
+
+        <thead>
+        <tr>
+            <th>nombre</th>
+            <th>apellido</th>
+            <th>email</th>
+            <th>Inscriptos</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for disertante in disertantes %}
+
+            <tr>
+
+              
+
+                <td>
+                    {{ disertante.nombre }}
+                </td>
+
+                <td>
+                    {{ disertante.apellido}}
+                </td>
+
+                <td>
+                    {{ disertante.email}}
+                </td>
+
+                
+                 
+
+                <td>
+
+
+                 
+ <a
+    href="{{ path(
+        'admin_disertante_inscriptos',
+        {id: disertante.id}
+    ) }}"
+    class="btn btn-info btn-sm"
+>
+    👥 Inscriptos
+    
+</a>
+        
+ 
+ 
+
+                 
+                </td>
+
+            </tr>
+
+        {% else %}
+
+            <tr>
+                <td colspan="5">
+                    No existe ningún disertante.
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</a>
+
+{# <a href="{{ path('') }}"
+   class="btn btn-secondary btn-sm mb-3">
+    🏠 Volver al Panel
+</a>
+</div> #}
+
+{% endblock %}

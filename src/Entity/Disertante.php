@@ -49,6 +49,12 @@ class Disertante
     #[ORM\Column(length: 255)]
     private ?string $direccion = null;
 
+    #[ORM\Column(length: 150)]
+    private ?string $especialidad = null;
+
+    #[ORM\Column]
+    private ?bool $activo = null;
+
     public function __construct()
     {
         $this->eventos = new ArrayCollection();
@@ -204,5 +210,29 @@ class Disertante
     public function __toString(): string
     {
     return $this->getNombreCompleto();
+    }
+
+    public function getEspecialidad(): ?string
+    {
+        return $this->especialidad;
+    }
+
+    public function setEspecialidad(string $especialidad): static
+    {
+        $this->especialidad = $especialidad;
+
+        return $this;
+    }
+
+    public function isActivo(): ?bool
+    {
+        return $this->activo;
+    }
+
+    public function setActivo(bool $activo): static
+    {
+        $this->activo = $activo;
+
+        return $this;
     }
 }

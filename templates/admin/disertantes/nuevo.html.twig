@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Nuevo disertante
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+
+    <h1>Nuevo disertante</h1>
+
+    <p>
+        Complete los datos para registrar
+        un nuevo disertante en el sistema.
+    </p>
+
+    {{ form_start(form) }}
+
+        {{ form_row(form.nombre) }}
+
+        {{ form_row(form.apellido) }}
+
+        {{ form_row(form.email) }}
+
+       {{ form_row(form.especialidad) }}
+
+
+        <button
+            type="submit"
+            class="btn btn-primary"
+        >
+            Guardar disertante
+        </button>
+
+    {{ form_end(form) }}
+
+     <a href="{{ path('admin_disertante_listar') }}"
+       class="btn btn-secondary mt-2">
+        Volver a la lista
+    </a>
+
+</div>
+
+{% endblock %}

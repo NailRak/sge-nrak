@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Disertante Eliminado
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+
+    <h1>
+        🗑️ Borrado de Disertantes
+    </h1>
+
+    <hr>
+
+    <div class="alert alert-success">
+
+        Disertante
+
+        <strong>
+            {{ disertante.id }}
+        </strong>
+
+        ha sido borrado correctamente.
+
+    </div>
+
+    <a
+        href="{{ path('admin_evento_listar') }}"
+        class="btn btn-primary"
+    >
+        ⬅ Volver al listado
+    </a>
+
+</div>
+
+{% endblock %}

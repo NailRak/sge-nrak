@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}
@@ -6,98 +7,133 @@
 
 {% block body %}
 
-<div class="container mt-4">
-
-    <h1>Gestión de Disertantes</h1>
-{% for mensaje in app.flashes('success') %}
-
-    <div class="alert alert-success">
-
-        {{ mensaje }}
-
-    </div>
-
-{% endfor %}
-
-    <table class="table table-bordered table-striped">
-
-        <thead>
-        <tr>
-            <th>nombre</th>
-            <th>apellido</th>
-            <th>email</th>
-            <th>Inscriptos</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-
-        <tbody>
-
-        {% for disertante in disertantes %}
-
-            <tr>
-
-              
-
-                <td>
-                    {{ disertante.nombre }}
-                </td>
-
-                <td>
-                    {{ disertante.apellido}}
-                </td>
-
-                <td>
-                    {{ disertante.email}}
-                </td>
-
-                
-                 
-
-                <td>
 
 
-                 
- <a
-    href="{{ path(
-        'admin_disertante_inscriptos',
-        {id: disertante.id}
-    ) }}"
-    class="btn btn-info btn-sm"
->
-    👥 Inscriptos
-    
-</a>
-        
- 
- 
+<div class="pagina-disertantes">
+    <div class="container">
 
-                 
-                </td>
+        {# Cabecera #}
+        <div class="encabezado-disertantes">
+            <h1>Gestión de Disertantes</h1>
+            <p>Administrá los disertantes, sus datos y especialidades.</p>
+        </div>
 
-            </tr>
+        {# Mensajes de éxito #}
+        {% for mensaje in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show mb-4"
+                 role="alert">
+                <strong>¡Operación exitosa!</strong>
+                {{ mensaje }}
 
-        {% else %}
-
-            <tr>
-                <td colspan="5">
-                    No existe ningún disertante.
-                </td>
-            </tr>
-
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Cerrar">
+                </button>
+            </div>
         {% endfor %}
 
-        </tbody>
+        {# Tabla de disertantes #}
+        <div class="tarjeta-disertantes">
 
-    </table>
+            <div class="table-responsive">
+                <table class="table tabla-disertantes">
 
-</a>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
+                            <th>Especialidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
 
-{# <a href="{{ path('') }}"
-   class="btn btn-secondary btn-sm mb-3">
-    🏠 Volver al Panel
-</a>
-</div> #}
+                    <tbody>
+                        {% for disertante in disertantes %}
+                            <tr>
+                                <td>
+                                    <strong>{{ disertante.nombre }}</strong>
+                                </td>
+
+                                <td>
+                                    {{ disertante.apellido }}
+                                </td>
+
+                                <td>
+                                    <a href="mailto:{{ disertante.email }}"
+                                       class="text-decoration-none text-success">
+                                        {{ disertante.email }}
+                                    </a>
+                                </td>
+
+                                <td>
+                                    <span class="badge-especialidad">
+                                        {{ disertante.especialidad }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <div class="acciones-disertante">
+
+                                        <a href="{{ path(
+                                            'admin_disertante_editar',
+                                            {id: disertante.id}
+                                        ) }}"
+                                           class="btn btn-editar btn-sm">
+                                            ✏️ Editar
+                                        </a>
+
+                                        <a href="{{ path(
+                                            'admin_disertante_borrar',
+                                            {id: disertante.id}
+                                        ) }}"
+                                           class="btn btn-borrar btn-sm">
+                                            🗑️ Borrar
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="estado-vacio">
+                                    <div class="mb-2">
+                                        <span style="font-size: 2rem;">🌿</span>
+                                    </div>
+
+                                    <h5 class="text-success">
+                                        No hay disertantes registrados
+                                    </h5>
+
+                                    <p class="mb-0">
+                                        Agregá un nuevo disertante para comenzar.
+                                    </p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+            {# Pie de la tabla #}
+            <div class="pie-disertantes">
+                <span class="text-muted small">
+                    Administración de disertantes
+                </span>
+
+                <a href="{{ path('admin_disertante_nuevo') }}"
+                   class="btn btn-verde">
+                    <span class="me-1">＋</span>
+                    Nuevo disertante
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 
 {% endblock %}

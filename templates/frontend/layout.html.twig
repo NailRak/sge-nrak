@@ -1,14 +1,18 @@
+
 {% extends 'base.html.twig' %}
 
 {% block header %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-publica">
+        <div class="container">
 
-            <a class="navbar-brand" href="{{ path('portada') }}">
-                Eventos
+            <a class="navbar-brand marca-eventos"
+               href="{{ path('portada') }}">
+                <span class="icono-marca">E</span>
+                <span>Eventos</span>
             </a>
 
-            <button class="navbar-toggler" type="button"
+            <button class="navbar-toggler"
+                    type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#menuPrincipal"
                     aria-controls="menuPrincipal"
@@ -18,7 +22,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="menuPrincipal">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
                         <a class="nav-link"
@@ -49,11 +53,33 @@
 {% endblock %}
 
 {% block body %}
-    <section class="container mt-4">
-        {% block contenido %}{% endblock %}
-    </section>
+    <main class="contenido-publico">
+        <section class="container py-4 py-md-5">
+            {% block contenido %}{% endblock %}
+        </section>
 
-    <aside class="container">
-        {% block lateral %}{% endblock %}
-    </aside>
+        <aside class="container pb-5">
+            {% block lateral %}{% endblock %}
+        </aside>
+    </main>
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer-publico">
+        <div class="container">
+            <div class="footer-contenido">
+                <a href="{{ path('portada') }}" class="footer-marca">
+                    Eventos
+                </a>
+
+                <p>
+                    Un espacio para compartir conocimientos y experiencias.
+                </p>
+
+                <span class="footer-copy">
+                    © {{ "now"|date("Y") }} Eventos. Todos los derechos reservados.
+                </span>
+            </div>
+        </div>
+    </footer>
 {% endblock %}

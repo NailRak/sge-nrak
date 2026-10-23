@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Disertante;
+use App\Form\DisertanteType;
 use App\Repository\DisertanteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,28 +31,119 @@ class AdminDisertanteController extends AbstractController
         );
     }
 
-    #[Route(
-    '/inscriptos/{id}',
-    name: 'admin_disertante_inscriptos',
+   
+#[Route(
+    '/borrar/{id}',
+    name: 'admin_disertante_borrar',
     requirements: ['id' => '\d+']
 )]
-public function inscriptos(
+public function borrar(
     int $id,
-    DisertanteRepository $disertanteRepository
+    DisertanteRepository $disertanteRepository,
+    EntityManagerInterface $entityManager
 ): Response
 {
-    $evento = $disertanteRepository->find($id);
+    $disertante = $disertanteRepository->find($id);
 
-    if (!$evento) {
+    if (!$disertante) {
         throw $this->createNotFoundException(
-            'disertante no encontrado'
+            'No existe disertante solicitado.'
+        );
+    }
+
+    $entityManager->remove($disertante);
+
+    $entityManager->flush();
+
+    return $this->render(
+        'admin/evento/borrar.html.twig',
+        [
+            'evento' => $disertante
+        ]
+    );
+}
+    #[Route(
+        '/nuevo',
+        name: 'admin_disertante_nuevo',
+        methods: ['GET', 'POST']
+    )]
+    public function nuevo(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $disertante = new Disertante();
+
+        $form = $this->createForm(
+            DisertanteType::class,
+            $disertante
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($disertante);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Disertante creado correctamente.'
+            );
+
+            return $this->redirectToRoute('admin_disertante_nuevo');
+        }
+
+        return $this->render(
+            'admin/disertantes/nuevo.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
+    }
+    #[Route(
+    '/editar/{id}',
+    name: 'admin_disertante_editar',
+    requirements: ['id' => '\d+'],
+    methods: ['GET', 'POST']
+)]
+public function editar(
+    int $id,
+    Request $request,
+    DisertanteRepository $disertanteRepository,
+    EntityManagerInterface $entityManager
+): Response {
+    $disertante = $disertanteRepository->find($id);
+
+    if (!$disertante) {
+        throw $this->createNotFoundException(
+            'No existe el disertante solicitado.'
+        );
+    }
+
+    $form = $this->createForm(
+        DisertanteType::class,
+        $disertante
+    );
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'Disertante actualizado correctamente.'
+        );
+
+        return $this->redirectToRoute(
+            'admin_disertante_listar'
         );
     }
 
     return $this->render(
-        'admin/disertantes/inscriptos.html.twig',
+        'admin/disertantes/editar.html.twig',
         [
-            'evento' => $evento
+            'form' => $form->createView(),
+            'disertante' => $disertante,
         ]
     );
 }

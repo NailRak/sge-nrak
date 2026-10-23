@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Editar disertante
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+
+    <h1>Editar disertante</h1>
+
+    <p>
+        Modifique los datos del disertante
+        y guarde los cambios realizados.
+    </p>
+
+    {{ form_start(form) }}
+
+        {{ form_row(form.nombre) }}
+        {{ form_row(form.apellido) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.especialidad) }}
+
+
+        <button type="submit" class="btn btn-primary">
+            Guardar cambios
+        </button>
+
+    {{ form_end(form) }}
+
+    <a href="{{ path('admin_disertante_listar') }}"
+       class="btn btn-secondary mt-2">
+        Volver a la lista
+    </a>
+
+</div>
+
+{% endblock %}

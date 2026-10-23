@@ -660,68 +660,633 @@ header {
     overflow: visible;
 }
 
-/* Barra de navegación */
-header nav.navbar {
-    background-color: #2262c2;
-    min-height: 70px;
-    padding: 0.75rem 1rem;
-    border-bottom: 3px solid #164B7B;
+
+/* ==============================
+   ESTILO GENERAL ADMINISTRATIVO
+   ============================== */
+
+.pagina-eventos,
+.pagina-disertantes {
+    background-color: #f4f8f4;
+    min-height: 100vh;
+    padding: 35px 0;
 }
 
-/* Título Eventos */
-header nav.navbar .navbar-brand {
-    display: inline-block;
-    color: #fff;
-    font-size: 1.25rem;
-    text-decoration: none;
-    padding: 0.5rem 1rem 0.5rem 0;
+/* Encabezados */
+
+.encabezado-eventos,
+.encabezado-disertantes {
+    background: linear-gradient(135deg, #14532d, #2e7d4b);
+    color: white;
+    padding: 28px 32px;
+    border-radius: 16px;
+    margin-bottom: 28px;
+    box-shadow: 0 5px 15px rgba(20, 83, 45, 0.15);
 }
 
-/* Enlaces del menú */
-header nav.navbar .navbar-nav .nav-link {
+.encabezado-eventos h1,
+.encabezado-disertantes h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.encabezado-eventos p,
+.encabezado-disertantes p {
+    margin-bottom: 0;
+    color: #d9f0df;
+}
+
+/* Tarjetas contenedoras */
+
+.tarjeta-eventos,
+.tarjeta-disertantes {
+    background-color: #ffffff;
+    border: 1px solid #e0ebe2;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(20, 83, 45, 0.06);
+}
+
+/* Tablas */
+
+.tabla-eventos,
+.tabla-disertantes {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.tabla-eventos thead th,
+.tabla-disertantes thead th {
+    background-color: #e4f1e7;
+    color: #245c36;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 17px 20px;
+    border-bottom: 2px solid #c9dfce;
+    white-space: nowrap;
+}
+
+.tabla-eventos tbody td,
+.tabla-disertantes tbody td {
+    padding: 17px 20px;
+    color: #37483b;
+    border-color: #edf3ee;
+}
+
+.tabla-eventos tbody tr:hover,
+.tabla-disertantes tbody tr:hover {
+    background-color: #f3faf4;
+}
+
+/* Fechas y horas de eventos */
+
+.fecha-evento {
+    color: #245c36;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.hora-evento {
     display: block;
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 1rem;
-    padding: 0.75rem;
+    color: #7a8b7e;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+/* Etiquetas */
+
+.badge-idioma,
+.badge-especialidad {
+    display: inline-block;
+    background-color: #e1f3e5;
+    color: #24633a;
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+/* Contador de inscriptos */
+
+.contador-inscriptos {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 8px;
+    background-color: #e1f3e5;
+    color: #24633a;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+/* Estados de los eventos */
+
+.estado-evento {
+    display: inline-block;
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.estado-finalizado {
+    background-color: #e9ecef;
+    color: #59636d;
+}
+
+.estado-hoy {
+    background-color: #fff0c2;
+    color: #805900;
+}
+
+.estado-programado {
+    background-color: #d9f2e1;
+    color: #20683a;
+}
+
+/* Botones */
+
+.btn-verde {
+    background-color: #287744;
+    border-color: #287744;
+    color: #ffffff;
+}
+
+.btn-verde:hover {
+    background-color: #1c5b33;
+    border-color: #1c5b33;
+    color: #ffffff;
+}
+
+.btn-inscriptos,
+.btn-editar {
+    background-color: #e3f2e7;
+    color: #24643a;
+    border: 1px solid #c5e2cc;
+}
+
+.btn-inscriptos:hover,
+.btn-editar:hover {
+    background-color: #cce8d3;
+    color: #174c2a;
+}
+
+.btn-borrar {
+    background-color: #fff0ed;
+    color: #b33c32;
+    border: 1px solid #f2d0ca;
+}
+
+.btn-borrar:hover {
+    background-color: #f9dcd6;
+    color: #8e2922;
+}
+
+/* Acciones */
+
+.acciones-evento,
+.acciones-disertante {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Pie de las tablas */
+
+.pie-eventos,
+.pie-disertantes {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    background-color: #fbfdfb;
+    border-top: 1px solid #edf3ee;
+}
+
+/* Tablas sin registros */
+
+.estado-vacio {
+    text-align: center;
+    padding: 45px 20px !important;
+    color: #718276 !important;
+}
+
+/* Alertas */
+
+.alert-success {
+    border: 1px solid #c8e6ce;
+    border-radius: 10px;
+}
+
+/* Enlaces de email */
+
+.tabla-disertantes a.text-success {
+    color: #287744 !important;
+}
+
+/* Diseño adaptable a celulares */
+
+@media (max-width: 768px) {
+    .encabezado-eventos,
+    .encabezado-disertantes {
+        padding: 22px;
+    }
+
+    .encabezado-eventos h1,
+    .encabezado-disertantes h1 {
+        font-size: 1.5rem;
+    }
+
+    .tabla-eventos thead th,
+    .tabla-eventos tbody td,
+    .tabla-disertantes thead th,
+    .tabla-disertantes tbody td {
+        padding: 13px;
+    }
+}
+
+
+/* ==============================
+   PÁGINA PÚBLICA DE EVENTOS
+   ============================== */
+
+.pagina-publica-eventos {
+    background-color: #f5f8f5;
+    min-height: 100vh;
+    color: #26392c;
+}
+
+/* Portada */
+
+.portada-eventos {
+    padding: 85px 0 90px;
+    background: linear-gradient(135deg, #123d27 0%, #216b40 60%, #398653 100%);
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.portada-eventos::after {
+    content: "";
+    position: absolute;
+    width: 330px;
+    height: 330px;
+    right: -90px;
+    bottom: -180px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 35px rgba(255, 255, 255, 0.04),
+        0 0 0 70px rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+}
+
+.etiqueta-portada {
+    display: inline-block;
+    color: #c4e8ce;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.portada-eventos h1 {
+    max-width: 750px;
+    font-size: clamp(2.2rem, 5vw, 3.7rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.portada-eventos p {
+    max-width: 650px;
+    color: #e0eee3;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.btn-portada {
+    background-color: #ffffff;
+    color: #205b35;
+    border: 1px solid #ffffff;
+    padding: 12px 23px;
+    border-radius: 9px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.btn-portada:hover {
+    background-color: #e5f3e8;
+    color: #174528;
+    transform: translateY(-2px);
+}
+
+/* Sección de eventos */
+
+.seccion-eventos {
+    padding: 65px 0 80px;
+}
+
+.titulo-seccion {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 32px;
+}
+
+.subtitulo-verde {
+    color: #32804b;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.titulo-seccion h2 {
+    color: #194c2c;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 800;
+    margin: 8px 0 10px;
+}
+
+.titulo-seccion p {
+    color: #718075;
+    margin-bottom: 0;
+    line-height: 1.7;
+}
+
+/* Tarjetas */
+
+.tarjeta-publica-evento {
+    background: #ffffff;
+    border: 1px solid #e3ece4;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(24, 73, 39, 0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tarjeta-publica-evento:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(24, 73, 39, 0.12);
+}
+
+.franja-evento {
+    height: 6px;
+    background: linear-gradient(90deg, #1b6035, #7fc895);
+}
+
+.contenido-evento {
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+    height: calc(100% - 6px);
+}
+
+.numero-evento {
+    align-self: flex-start;
+    background: #e8f4eb;
+    color: #287344;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 17px;
+}
+
+.contenido-evento h3 {
+    font-size: 1.25rem;
+    font-weight: 750;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.contenido-evento h3 a {
+    color: #244d31;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.contenido-evento h3 a:hover {
+    color: #32804b;
+}
+
+.descripcion-evento {
+    color: #718075;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 24px;
+    overflow-wrap: anywhere;
+}
+
+/* Enlace de cada evento */
+
+.pie-tarjeta-evento {
+    margin-top: auto;
+    padding-top: 17px;
+    border-top: 1px solid #edf2ed;
+}
+
+.enlace-evento {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #287344;
+    font-weight: 700;
+    font-size: 0.92rem;
     text-decoration: none;
 }
 
-/* Efecto al pasar el mouse */
-header nav.navbar .navbar-nav .nav-link:hover {
-    color: #fff;
-    background-color: rgba(255, 255, 255, 0.12);
+.enlace-evento span {
+    transition: transform 0.2s ease;
 }
 
-/* Evitar que los estilos antiguos de la cabecera
-   interfieran con Bootstrap */
-header nav.navbar ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.enlace-evento:hover {
+    color: #174b2b;
 }
 
-header nav.navbar ul li {
-    float: none;
+.enlace-evento:hover span {
+    transform: translateX(4px);
+}
+
+/* Estado sin eventos */
+
+.estado-vacio-publico {
+    background: #ffffff;
+    border: 1px dashed #c9dfce;
+    border-radius: 15px;
+    text-align: center;
+    padding: 55px 20px;
+}
+
+.icono-vacio {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+.estado-vacio-publico h3 {
+    color: #245c36;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.estado-vacio-publico p {
+    color: #718075;
     margin-bottom: 0;
 }
 
-/* Contenido principal */
-main {
-    min-height: 300px;
+/* Responsive */
+
+@media (max-width: 768px) {
+    .portada-eventos {
+        padding: 60px 0;
+    }
+
+    .portada-eventos p {
+        font-size: 1rem;
+    }
+
+    .seccion-eventos {
+        padding: 45px 0 55px;
+    }
+
+    .contenido-evento {
+        padding: 22px;
+    }
 }
 
-main h1 {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
+
+/* ==============================
+   NAVBAR PÚBLICA
+   ============================== */
+
+.navbar-publica {
+    background: linear-gradient(135deg, #26a5a5, #6fdd9d);
+    padding: 14px 0;
+    box-shadow: 0 4px 16px rgba(18, 61, 39, 0.15);
 }
 
-/* Descripción de los eventos */
-main p {
-    line-height: 1.6;
+.marca-eventos {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff !important;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.4px;
 }
 
-/* Pie de página */
-footer {
-    margin-top: 2rem;
+.icono-marca {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: #d9f0df;
+    color: #89b69a;
+    border-radius: 11px;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.navbar-publica .navbar-nav {
+    gap: 8px;
+}
+
+.navbar-publica .nav-link {
+    color: #e1eee4;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 10px 15px !important;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.navbar-publica .nav-link:hover,
+.navbar-publica .nav-link:focus {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+.navbar-publica .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.35);
+    padding: 7px 10px;
+}
+
+.navbar-publica .navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(217, 240, 223, 0.25);
+}
+
+/* ==============================
+   CONTENIDO GENERAL
+   ============================== */
+
+.contenido-publico {
+    min-height: 65vh;
+    background-color: #f5f8f5;
+}
+
+/* ==============================
+   FOOTER
+   ============================== */
+
+.footer-publico {
+     background: linear-gradient(135deg, #26a5a5, #6fdd9d);
+    color: #012009;
+    padding: 38px 0 25px;
+}
+
+.footer-contenido {
+    text-align: center;
+}
+
+.footer-marca {
+    display: inline-block;
+    color: #ffffff;
+    font-size: 1.35rem;
+    font-weight: 800;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.footer-marca:hover {
+    color: #10212c;
+}
+
+.footer-contenido p {
+    color: #011f18;
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.footer-copy {
+    display: block;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    color: #b8d0bf;
+    font-size: 0.82rem;
+}
+
+/* ==============================
+   RESPONSIVE
+   ============================== */
+
+@media (max-width: 991px) {
+    .navbar-publica .navbar-nav {
+        gap: 3px;
+        padding-top: 15px;
+    }
+
+    .navbar-publica .nav-link {
+        padding: 11px 12px !important;
+    }
 }

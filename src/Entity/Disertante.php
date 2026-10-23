@@ -22,23 +22,23 @@ class Disertante
     #[ORM\Column(length: 255)]
     private ?string $apellido = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $biografia = null;
+    #[ORM\Column(type: Types::TEXT, options: ['default' => ''])]
+    private string $biografia = '';
+
+    #[ORM\Column(length: 50, options: ['default' => ''])]
+    private string $telefono = '';
+
+   #[ORM\Column(length: 255)]
+   private string $url = '';
 
     #[ORM\Column(length: 255)]
-    private ?string $telefono = null;
+    private ?string $email = '';
 
     #[ORM\Column(length: 255)]
-    private ?string $url = null;
+    private ?string $twitter = '';
 
     #[ORM\Column(length: 255)]
-    private ?string $email = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $twitter = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $linkedin = null;
+    private ?string $linkedin = '';
 
     /**
      * @var Collection<int, Evento>
@@ -47,13 +47,13 @@ class Disertante
     private Collection $eventos;
 
     #[ORM\Column(length: 255)]
-    private ?string $direccion = null;
+    private ?string $direccion = '';
 
     #[ORM\Column(length: 150)]
     private ?string $especialidad = null;
 
-    #[ORM\Column]
-    private ?bool $activo = null;
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+private bool $activo = true;
 
     public function __construct()
     {

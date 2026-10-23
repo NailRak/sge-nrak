@@ -1,43 +1,159 @@
+
 {% extends 'frontend/layout.html.twig' %}
 
+{% block title %}
+    Eventos | Conferencias y encuentros
+{% endblock %}
+
 {% block body %}
-    <h1>Symfony 7.4 - Eventos</h1>
 
-    {% for mensaje in app.flashes('info') %}
-        <div class="alert alert-info">
-            {{ mensaje }}
-        </div>
-    {% endfor %}
+<div class="pagina-publica-eventos">
 
-    <div class="row g-4">
-    <div class="col-md-6">
-            <ul>
-                {% for evento in eventosCol1 %}
-                    <li>
-                        <a href="{{ path('app_evento_detalle', {'slug': evento.slug}) }}">
-                            {{ evento.titulo }}
-                        </a>
-                        <p>{{ evento.descripcion }}</p>
-                    </li>
-                {% else %}
-                    <li>No hay eventos</li>
-                {% endfor %}
-            </ul>
-        </div>
+    {# Portada #}
+    <section class="portada-eventos">
+        <div class="container">
+            <span class="etiqueta-portada">
+                CONOCIMIENTO · INNOVACIÓN · CONEXIÓN
+            </span>
 
-        <div class="col-md-6">
-            <ul>
-                {% for evento in eventosCol2 %}
-                    <li>
-                        <a href="{{ path('app_evento_detalle', {'slug': evento.slug}) }}">
-                            {{ evento.titulo }}
-                        </a>
-                        <p>{{ evento.descripcion }}</p>
-                    </li>
-                {% else %}
-                    <li>No hay eventos</li>
-                {% endfor %}
-            </ul>
+            <h1>Descubrí nuestros eventos</h1>
+
+            <p>
+                Encontrá nuevas ideas, compartí experiencias y conectá
+                con personas que comparten tus intereses.
+            </p>
+
+            <a href="#lista-eventos" class="btn btn-portada">
+                Explorar eventos
+                <span class="ms-2">↓</span>
+            </a>
         </div>
+    </section>
+
+    {# Mensajes informativos #}
+    <div class="container pt-4">
+        {% for mensaje in app.flashes('info') %}
+            <div class="alert alert-success alert-dismissible fade show"
+                 role="alert">
+                {{ mensaje }}
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Cerrar">
+                </button>
+            </div>
+        {% endfor %}
     </div>
+
+    {# Listado de eventos #}
+    <section id="lista-eventos" class="seccion-eventos">
+        <div class="container">
+
+            <div class="titulo-seccion">
+                <div>
+                    <span class="subtitulo-verde">AGENDA</span>
+                    <h2>Próximos eventos</h2>
+                    <p>Explorá las actividades disponibles y encontrá tu próximo encuentro.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+
+                {# Primera columna #}
+                {% for evento in eventosCol1 %}
+                    <div class="col-md-6 col-lg-4">
+                        <article class="tarjeta-publica-evento h-100">
+
+                            <div class="franja-evento"></div>
+
+                            <div class="contenido-evento">
+                                <span class="numero-evento">
+                                    EVENTO
+                                </span>
+
+                                <h3>
+                                    <a href="{{ path(
+                                        'app_evento_detalle',
+                                        {'slug': evento.slug}
+                                    ) }}">
+                                        {{ evento.titulo }}
+                                    </a>
+                                </h3>
+
+                                <p class="descripcion-evento">
+                                    {{ evento.descripcion }}
+                                </p>
+
+                                <div class="pie-tarjeta-evento">
+                                    <a href="{{ path(
+                                        'app_evento_detalle',
+                                        {'slug': evento.slug}
+                                    ) }}"
+                                       class="enlace-evento">
+                                        Ver detalles
+                                        <span aria-hidden="true">→</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </article>
+                    </div>
+                {% else %}
+                    <div class="col-12">
+                        <div class="estado-vacio-publico">
+                            <div class="icono-vacio">🌿</div>
+                            <h3>Próximamente habrá novedades</h3>
+                            <p>No hay eventos disponibles en esta sección por el momento.</p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {# Segunda columna #}
+                {% for evento in eventosCol2 %}
+                    <div class="col-md-6 col-lg-4">
+                        <article class="tarjeta-publica-evento h-100">
+
+                            <div class="franja-evento"></div>
+
+                            <div class="contenido-evento">
+                                <span class="numero-evento">
+                                    EVENTO
+                                </span>
+
+                                <h3>
+                                    <a href="{{ path(
+                                        'app_evento_detalle',
+                                        {'slug': evento.slug}
+                                    ) }}">
+                                        {{ evento.titulo }}
+                                    </a>
+                                </h3>
+
+                                <p class="descripcion-evento">
+                                    {{ evento.descripcion }}
+                                </p>
+
+                                <div class="pie-tarjeta-evento">
+                                    <a href="{{ path(
+                                        'app_evento_detalle',
+                                        {'slug': evento.slug}
+                                    ) }}"
+                                       class="enlace-evento">
+                                        Ver detalles
+                                        <span aria-hidden="true">→</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </article>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+</div>
+
 {% endblock %}

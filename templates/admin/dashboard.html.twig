@@ -1,0 +1,12 @@
+{% extends 'admin/layout-admin.html.twig' %}
+
+{% block content %}
+
+<table>
+    {% for disertante in diseratantes %}
+        <tr>
+            <td>{{ disertante.nombre }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

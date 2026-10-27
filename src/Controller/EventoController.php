@@ -9,6 +9,7 @@ use App\Repository\EventoRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Evento;
+use App\Service\EventoDisponibilidadService;
 
 class EventoController extends AbstractController
 {
@@ -50,6 +51,22 @@ class EventoController extends AbstractController
 );
 
 }
+#[Route('/evento/{id}/disponibilidad', name: 'evento_disponibilidad')]
+    public function disponibilidad(
+        Evento $evento,
+        EventoDisponibilidadService $disponibilidadService
+    ): Response {
+        $mensaje = $disponibilidadService->obtenerMensaje($evento);
+        $tieneCupos = $disponibilidadService->tieneCupos($evento);
 
+        return $this->render(
+            'evento/disponibilidad.html.twig',
+            [
+                'evento' => $evento,
+                'mensaje' => $mensaje,
+                'tieneCupos' => $tieneCupos,
+            ]
+        );
+    }
 
 }

@@ -48,6 +48,10 @@ class Evento
     #[ORM\Column(length: 20)]
     private ?string $estado = 'activo';
 
+    #[ORM\Column(type: 'integer', options: ['default' => 0])]
+private ?int $capacidad = 0;
+
+
     /**
      * @var Collection<int, Usuario>
      */
@@ -214,6 +218,19 @@ class Evento
 public function setEstado(string $estado): self
 {
     $this->estado = $estado;
+    return $this;
+}
+
+
+
+public function getCapacidad(): ?int
+{
+    return $this->capacidad;
+}
+
+public function setCapacidad(int $capacidad): static
+{
+    $this->capacidad = $capacidad;
     return $this;
 }
 }

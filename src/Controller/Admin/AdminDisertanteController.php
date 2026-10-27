@@ -147,5 +147,17 @@ public function editar(
         ]
     );
 }
+#[Route('/ver/{id}', name: 'admin_disertante_ver', requirements: ['id' => '\d+'])]
+    public function ver(int $id, DisertanteRepository $disertanteRepository): Response
+    {
+        $disertante = $disertanteRepository->find($id);
 
+        if (!$disertante) {
+            throw $this->createNotFoundException('No existe el disertante solicitado.');
+        }
+
+        return $this->render('admin/disertantes/ver.html.twig', [
+            'disertante' => $disertante,
+        ]);
+    }
 }

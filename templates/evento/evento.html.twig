@@ -35,6 +35,12 @@
     {{ evento.disertante.biografia|raw }}
 
 </div>
+
+<div class="mt-4">
+    <a href="{{ path('evento_disponibilidad', {'id': evento.id}) }}" class="btn btn-primary">
+        <i class="fas fa-check-circle"></i> Ver Disponibilidad y Cupos
+    </a>
+</div>
 {% endblock %}
 
 {% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'frontend/layout.html.twig' %}
+
+{% block title %}Disponibilidad - {{ evento.titulo }}{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    <h1 class="mb-4">Disponibilidad del Evento</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">{{ evento.titulo }}</h4>
+                </div>
+                <div class="card-body">
+                    
+                    <ul class="list-group list-group-flush mb-4">
+                        <li class="list-group-item"><strong>Fecha:</strong> {{ evento.fecha ? evento.fecha|date('d/m/Y') : 'N/D' }}</li>
+                        <li class="list-group-item"><strong>Hora:</strong> {{ evento.hora ? evento.hora|date('H:i') : 'N/D' }} ({{ evento.duracion }} mins)</li>
+                        <li class="list-group-item"><strong>Capacidad:</strong> {{ evento.capacidad }} personas</li>
+                        <li class="list-group-item"><strong>Estado:</strong> {{ evento.estado }}</li>
+                    </ul>
+
+                    {# Mensaje y variable booleana que llegan del controlador / servicio #}
+                    <div class="alert {{ tieneCupos ? 'alert-success' : 'alert-danger' }} text-center p-3">
+                        <h4 class="alert-heading">Resultado del Servicio</h4>
+                        <p class="mb-0 fs-5"><strong>{{ mensaje }}</strong></p>
+                    </div>
+
+                </div>
+                <div class="card-footer text-end">
+                    <a href="javascript:history.back()" class="btn btn-secondary btn-sm">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

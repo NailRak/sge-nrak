@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Detalle del Disertante{% endblock %}
+
+{% block body %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Detalle del Disertante</h1>
+    <ol class="breadcrumb mb-4">
+     
+        <li class="breadcrumb-item"><a href="{{ path('admin_disertante_listar') }}">Disertantes</a></li>
+        <li class="breadcrumb-item active">Ver Detalle</li>
+    </ol>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-user-tie me-1"></i>
+                Información de: <strong>{{ disertante.nombre }} {{ disertante.apellido }}</strong>
+            </div>
+            <div>
+                <a href="{{ path('admin_disertante_listar') }}" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-arrow-left"></i> Volver al listado
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Columna de Datos Personales y de Contacto -->
+                <div class="col-md-6 mb-3">
+                    <h5 class="border-bottom pb-2 text-primary">Datos Personales</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Nombre:</strong>
+                            <span>{{ disertante.nombre }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Apellido:</strong>
+                            <span>{{ disertante.apellido }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Teléfono:</strong>
+                            <span>{{ disertante.telefono }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Email:</strong>
+                            <span>
+                                {% if disertante.email %}
+                                    <a href="mailto:{{ disertante.email }}">{{ disertante.email }}</a>
+                                {% else %}
+                                    No especificado
+                                {% endif %}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Columna de Redes y Enlaces -->
+                <div class="col-md-6 mb-3">
+                    <h5 class="border-bottom pb-2 text-primary">Enlaces y Redes Sociales</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Sitio Web / URL:</strong>
+                            <span>
+                                {% if disertante.url %}
+                                    <a href="{{ disertante.url }}" target="_blank" rel="noopener noreferrer">{{ disertante.url }} <i class="fas fa-external-link-alt fa-xs"></i></a>
+                                {% else %}
+                                    No especificado
+                                {% endif %}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Twitter / X:</strong>
+                            <span>
+                                {% if disertante.twitter %}
+                                    <a href="https://twitter.com/{{ disertante.twitter|trim('@') }}" target="_blank" rel="noopener noreferrer">@{{ disertante.twitter|trim('@') }} <i class="fas fa-external-link-alt fa-xs"></i></a>
+                                {% else %}
+                                    No especificado
+                                {% endif %}
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>LinkedIn:</strong>
+                            <span>
+                                {% if disertante.linkedin %}
+                                    <a href="{{ disertante.linkedin }}" target="_blank" rel="noopener noreferrer">Ver Perfil <i class="fas fa-external-link-alt fa-xs"></i></a>
+                                {% else %}
+                                    No especificado
+                                {% endif %}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Fila de Biografía -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h5 class="border-bottom pb-2 text-primary">Biografía</h5>
+                    <div class="p-3 bg-light rounded border">
+                        {% if disertante.biografia %}
+                            <p class="mb-0" style="white-space: pre-line;">{{ disertante.biografia }}</p>
+                        {% else %}
+                            <p class="text-muted mb-0 font-italic">Este disertante no cuenta con biografía registrada.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer text-muted text-end">
+            <small>ID del Registro: {{ disertante.id }}</small>
+        </div>
+    </div>
+</div>
+{% endblock %}

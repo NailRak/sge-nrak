@@ -4,42 +4,198 @@
     Nuevo disertante
 {% endblock %}
 
+{# === SOLO CSS DE ESTA VISTA === #}
+{% block stylesheets %}
+    <script src="https://cdn.tailwindcss.com"></script>
+{% endblock %}
+
 {% block body %}
 
-<div class="container mt-4">
+<div class="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
 
-    <h1>Nuevo disertante</h1>
-
-    <p>
-        Complete los datos para registrar
-        un nuevo disertante en el sistema.
-    </p>
-
-    {{ form_start(form) }}
-
-        {{ form_row(form.nombre) }}
-
-        {{ form_row(form.apellido) }}
-
-        {{ form_row(form.email) }}
-
-       {{ form_row(form.especialidad) }}
-
-
-        <button
-            type="submit"
-            class="btn btn-primary"
+        {# ===== BOTÓN VOLVER ===== #}
+        <a
+            href="{{ path('admin_disertante_listar') }}"
+            class="inline-flex items-center gap-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 px-3 py-1.5 rounded-lg transition-colors duration-150 mb-5"
         >
-            Guardar disertante
-        </button>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+            </svg>
+            Volver al listado
+        </a>
 
-    {{ form_end(form) }}
+        {# ===== CABECERA ===== #}
+        <div class="mb-5">
+            <div class="flex items-center gap-2 mb-1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-emerald-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                </svg>
+                <h1 class="text-xl font-semibold text-slate-900">
+                    Nuevo disertante
+                </h1>
+            </div>
+            <p class="text-sm text-slate-500">
+                Complete los datos para registrar un nuevo disertante.
+            </p>
+        </div>
 
-     <a href="{{ path('admin_disertante_listar') }}"
-       class="btn btn-secondary mt-2">
-        Volver a la lista
-    </a>
+        {# ===== MENSAJES FLASH ===== #}
+        {% for mensaje in app.flashes('success') %}
+            <div class="mb-4 flex items-start gap-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl px-4 py-2.5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mt-0.5 shrink-0">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <div class="text-sm">
+                    <p class="font-semibold">¡Operación exitosa!</p>
+                    <p>{{ mensaje }}</p>
+                </div>
+            </div>
+        {% endfor %}
 
+        {# ===== TARJETA DEL FORMULARIO ===== #}
+        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+
+            <div class="px-5 py-3 border-b border-slate-200">
+                <h2 class="text-sm font-semibold text-slate-800">
+                    Datos del disertante
+                </h2>
+                <p class="text-xs text-slate-500 mt-0.5">
+                    Los campos son obligatorios salvo que se indique lo contrario.
+                </p>
+            </div>
+
+            <div class="px-5 py-5">
+
+                {{ form_start(form, {
+                    attr: {
+                        class: 'space-y-5',
+                        novalidate: 'novalidate'
+                    }
+                }) }}
+
+                    {# ---------- SECCIÓN 1: DATOS PERSONALES ---------- #}
+                    <div>
+                        <h3 class="text-xs uppercase tracking-wide text-slate-500 font-medium mb-2">
+                            Datos personales
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                            <div>
+                                {{ form_row(form.nombre, {
+                                    label_attr: { class: 'block text-sm font-medium text-slate-700 mb-1' },
+                                    attr: { class: 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none transition-colors duration-150' }
+                                }) }}
+                            </div>
+
+                            <div>
+                                {{ form_row(form.apellido, {
+                                    label_attr: { class: 'block text-sm font-medium text-slate-700 mb-1' },
+                                    attr: { class: 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none transition-colors duration-150' }
+                                }) }}
+                            </div>
+
+                            <div>
+                                {{ form_row(form.telefono, {
+                                    label_attr: { class: 'block text-sm font-medium text-slate-700 mb-1' },
+                                    attr: { class: 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none transition-colors duration-150' }
+                                }) }}
+                            </div>
+
+                            <div>
+                                {{ form_row(form.especialidad, {
+                                    label_attr: { class: 'block text-sm font-medium text-slate-700 mb-1' },
+                                    attr: { class: 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none transition-colors duration-150' }
+                                }) }}
+                            </div>
+
+                            <div class="md:col-span-2 lg:col-span-2">
+                                {{ form_row(form.email, {
+                                    label_attr: { class: 'block text-sm font-medium text-slate-700 mb-1' },
+                                    attr: { class: 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none transition-colors duration-150' }
+                                }) }}
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {# ---------- SECCIÓN 2: ENLACES Y REDES ---------- #}
+                    <div class="pt-5 border-t border-slate-200">
+                        <h3 class="text-xs uppercase tracking-wide text-slate-500 font-medium mb-2">
+                            Enlaces y redes
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                            <div class="md:col-span-2 lg:col-span-3">
+                                {{ form_row(form.url, {
+                                    label_attr: { class: 'block text-sm font-medium text-slate-700 mb-1' },
+                                    attr: { class: 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none transition-colors duration-150' }
+                                }) }}
+                            </div>
+
+                            <div>
+                                {{ form_row(form.twitter, {
+                                    label_attr: { class: 'block text-sm font-medium text-slate-700 mb-1' },
+                                    attr: { class: 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none transition-colors duration-150' }
+                                }) }}
+                            </div>
+
+                            <div class="md:col-span-2 lg:col-span-2">
+                                {{ form_row(form.linkedin, {
+                                    label_attr: { class: 'block text-sm font-medium text-slate-700 mb-1' },
+                                    attr: { class: 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none transition-colors duration-150' }
+                                }) }}
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {# ---------- SECCIÓN 3: BIOGRAFÍA ---------- #}
+                    <div class="pt-5 border-t border-slate-200">
+                        <h3 class="text-xs uppercase tracking-wide text-slate-500 font-medium mb-2">
+                            Biografía
+                        </h3>
+
+                        {{ form_row(form.biografia, {
+                            label_attr: { class: 'block text-sm font-medium text-slate-700 mb-1' },
+                            attr: {
+                                class: 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none transition-colors duration-150',
+                                rows: 4
+                            }
+                        }) }}
+                    </div>
+
+                    {# ---------- BOTONES ---------- #}
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2 pt-5 border-t border-slate-200">
+
+                        <a
+                            href="{{ path('admin_disertante_listar') }}"
+                            class="inline-flex items-center justify-center gap-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 px-4 py-2 rounded-lg transition-colors duration-150"
+                        >
+                            Cancelar
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-sm transition-colors duration-150"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                            </svg>
+                            Crear disertante
+                        </button>
+
+                    </div>
+
+                {{ form_end(form) }}
+
+            </div>
+
+        </div>
+
+    </div>
 </div>
 
 {% endblock %}

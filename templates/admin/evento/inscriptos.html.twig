@@ -1,88 +1,185 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Inscriptos
+    Inscriptos — {{ evento.titulo }}
+{% endblock %}
+
+{# === SOLO CSS DE ESTA VISTA === #}
+{% block stylesheets %}
+    <script src="https://cdn.tailwindcss.com"></script>
 {% endblock %}
 
 {% block body %}
 
-<div class="container mt-4">
+<div class="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto">
 
-    <h1>
-        👥 Inscriptos al Evento
-    </h1>
+        {# ===== CABECERA ===== #}
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+            <div>
+                <div class="flex items-center gap-2 mb-1">
+                    {# Icono oficial: users #}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-emerald-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                    </svg>
+                    <h1 class="text-2xl font-semibold text-slate-900">
+                        Inscriptos
+                    </h1>
+                </div>
+                <p class="text-slate-700 font-medium">
+                    {{ evento.titulo }}
+                </p>
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-sm text-slate-500">
+                    <span class="inline-flex items-center gap-1.5">
+                        {# Icono oficial: globe-alt #}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.949 8.949 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        {{ evento.idioma }}
+                    </span>
+                    {% if evento.fecha %}
+                        <span class="inline-flex items-center gap-1.5">
+                            {# Icono oficial: calendar #}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                            </svg>
+                            {{ evento.fecha|date('d/m/Y') }}
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
 
-    <h4>
-        {{ evento.titulo }}
-    </h4>
-    <h4>
-        {{ evento.idioma }}
-    </h4>
-            <a 
-    href="{{ path('admin_evento_listar') }}"
-    class="btn btn-secondary btn-sm mb-3"
->
-    ⬅ Volver a Eventos
-</a>
-    <hr>
+            <a
+                href="{{ path('admin_evento_listar') }}"
+                class="inline-flex items-center gap-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 px-4 py-2 rounded-lg transition-colors duration-150"
+            >
+                {# Icono oficial: arrow-left #}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                </svg>
+                Volver a Eventos
+            </a>
+        </div>
 
-    <table class="table table-bordered table-striped">
+        {# ===== RESUMEN ===== #}
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
 
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>DNI</th>
-            <th>Nombre</th>
-            <th>Teléfono</th>
-            <th>Email</th>
-        </tr>
-        </thead>
+            <div class="bg-white border border-slate-200 rounded-xl p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500 font-medium">Inscriptos</p>
+                <p class="text-2xl font-semibold text-slate-900 mt-1">
+                    {{ evento.usuarios|length }}
+                </p>
+            </div>
 
-        <tbody>
+            <div class="bg-white border border-slate-200 rounded-xl p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500 font-medium">Capacidad</p>
+                <p class="text-2xl font-semibold text-slate-900 mt-1">
+                    {{ evento.capacidad }}
+                </p>
+            </div>
 
-        {% for usuario in evento.usuarios %}
+            {% set disponible = evento.capacidad - evento.usuarios|length %}
+            <div class="bg-white border border-slate-200 rounded-xl p-4">
+                <p class="text-xs uppercase tracking-wide text-slate-500 font-medium">Lugares libres</p>
+                <p class="text-2xl font-semibold mt-1 {{ disponible > 0 ? 'text-emerald-600' : 'text-red-600' }}">
+                    {{ disponible > 0 ? disponible : 0 }}
+                </p>
+            </div>
 
-            <tr>
+        </div>
 
-                <td>
-                    {{ loop.index }}
-                </td>
+        {# ===== TABLA ===== #}
+        <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
 
-                <td>
-                    {{ usuario.dni }}
-                </td>
+            <div class="px-5 py-3 border-b border-slate-200 flex items-center justify-between">
+                <h2 class="text-sm font-semibold text-slate-800">
+                    Listado de inscriptos
+                </h2>
+                <span class="text-xs text-slate-500">
+                    {{ evento.usuarios|length }} registro(s)
+                </span>
+            </div>
 
-                <td>
-                    {{ usuario.nombre }}
-                    {{ usuario.apellido }}
-                </td>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-slate-50 text-slate-500 uppercase text-xs tracking-wide">
+                        <tr>
+                            <th class="px-5 py-3 font-medium">#</th>
+                            <th class="px-5 py-3 font-medium">DNI</th>
+                            <th class="px-5 py-3 font-medium">Nombre</th>
+                            <th class="px-5 py-3 font-medium">Teléfono</th>
+                            <th class="px-5 py-3 font-medium">Email</th>
+                            <th class="px-5 py-3 font-medium text-right">Acciones</th>
+                        </tr>
+                    </thead>
 
-                <td>
-                    {{ usuario.telefono }}
-                </td>
+                    <tbody class="divide-y divide-slate-100">
+                    {% for usuario in evento.usuarios %}
+                        <tr class="hover:bg-slate-50/70 transition-colors duration-100">
+                            <td class="px-5 py-3 text-slate-400 font-mono text-xs">
+                                {{ loop.index }}
+                            </td>
+                            <td class="px-5 py-3 font-mono text-slate-700">
+                                {{ usuario.dni }}
+                            </td>
+                            <td class="px-5 py-3 text-slate-800 font-medium">
+                                {{ usuario.nombre }} {{ usuario.apellido }}
+                            </td>
+                            <td class="px-5 py-3 text-slate-600">
+                                {{ usuario.telefono }}
+                            </td>
+                            <td class="px-5 py-3 text-slate-600">
+                                {{ usuario.email }}
+                            </td>
+                            <td class="px-5 py-3 text-right">
+                                <form
+                                    method="post"
+                                    action="{{ path('admin_evento_inscripto_borrar', {
+                                        id: evento.id,
+                                        usuarioId: usuario.id
+                                    }) }}"
+                                    onsubmit="return confirm('¿Quitar a {{ usuario.nombre }} {{ usuario.apellido }} del evento?');"
+                                    class="inline-block"
+                                >
+                                    <input
+                                        type="hidden"
+                                        name="_token"
+                                        value="{{ csrf_token('borrar_inscripto_' ~ evento.id ~ '_' ~ usuario.id) }}"
+                                    >
+                                    <button
+                                        type="submit"
+                                        class="inline-flex items-center gap-1.5 text-xs font-medium text-red-600 border border-red-200 hover:bg-red-50 px-2.5 py-1.5 rounded-md transition-colors duration-150"
+                                        title="Quitar del evento"
+                                    >
+                                        {# Icono oficial: trash #}
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3.5 h-3.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                        </svg>
+                                        Quitar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="px-5 py-14 text-center">
+                                <div class="flex flex-col items-center gap-2 text-slate-400">
+                                    {# Icono oficial: inbox #}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z" />
+                                    </svg>
+                                    <p class="text-sm font-medium">No hay usuarios inscriptos.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
-                <td>
-                    {{ usuario.email }}
-                </td>
+        </div>
 
-            </tr>
-
-        {% else %}
-
-            <tr>
-                <td colspan="5">
-                    No hay usuarios inscriptos.
-                </td>
-            </tr>
-
-
-
-        {% endfor %}
-
-        </tbody>
-
-    </table>
-
+    </div>
 </div>
 
 {% endblock %}

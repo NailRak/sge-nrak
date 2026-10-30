@@ -1,15 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block header %}
-    <h1>Panel de administración</h1>
+{% block title %}Panel de Administración{% endblock %}
 
-    <nav>
-        <a href="{{ path('admin_dashboard') }}">Dashboard</a>
-        <a href="{{ path('admin_evento_index') }}">Eventos</a>
-        <a href="{{ path('admin_disertante_listar') }}">Disertantes</a>
+{% block header %}
+    <!-- Navbar superior con temática verde -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm mb-4">
+        <div class="container-fluid px-4">
+            
+            <!-- Título / Marca -->
+            <a class="navbar-brand fw-bold fs-4 d-flex align-items-center gap-2" href="{{ path('admin_dashboard') }}">
+                <i class="fas fa-tachometer-alt"></i> Panel de Administración
+            </a>
+
+            <!-- Botón responsive para móviles -->
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menú de navegación -->
+            <div class="collapse navbar-collapse justify-content-end" id="adminNavbar">
+                <ul class="navbar-nav align-items-center gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link px-3 rounded-pill text-white fw-semibold hover-green" href="{{ path('admin_dashboard') }}">
+                            <i class="fas fa-home me-1"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3 rounded-pill text-white fw-semibold hover-green" href="{{ path('admin_evento_listar') }}">
+                            <i class="fas fa-calendar-alt me-1"></i> Eventos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3 rounded-pill text-white fw-semibold hover-green" href="{{ path('admin_disertante_listar') }}">
+                            <i class="fas fa-users me-1"></i> Disertantes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 {% endblock %}
 
 {% block body %}
-    {% block admin_body %}{% endblock %}
+    <!-- Contenedor principal para las vistas hijas -->
+    <div class="container py-3">
+        {% block admin_body %}{% endblock %}
+    </div>
 {% endblock %}

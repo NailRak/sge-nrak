@@ -36,7 +36,7 @@ class Evento
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTime $hora = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $duracion = null;
 
     #[ORM\Column(length: 255)]

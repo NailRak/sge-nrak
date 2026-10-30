@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Evento;
 use App\Form\EventoType;
 use App\Repository\EventoRepository;
+use App\Repository\UsuarioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,60 +33,111 @@ class AdminEventoController extends AbstractController
     }
 
     #[Route(
-    '/inscriptos/{id}',
-    name: 'admin_evento_inscriptos',
-    requirements: ['id' => '\d+']
-)]
-public function inscriptos(
-    int $id,
-    EventoRepository $eventoRepository
-): Response
-{
-    $evento = $eventoRepository->find($id);
+        '/inscriptos/{id}',
+        name: 'admin_evento_inscriptos',
+        requirements: ['id' => '\d+']
+    )]
+    public function inscriptos(
+        int $id,
+        EventoRepository $eventoRepository
+    ): Response {
+        $evento = $eventoRepository->find($id);
 
-    if (!$evento) {
-        throw $this->createNotFoundException(
-            'Evento no encontrado'
+        if (!$evento) {
+            throw $this->createNotFoundException(
+                'Evento no encontrado'
+            );
+        }
+
+        return $this->render(
+            'admin/evento/inscriptos.html.twig',
+            [
+                'evento' => $evento
+            ]
         );
     }
 
-    return $this->render(
-        'admin/evento/inscriptos.html.twig',
-        [
-            'evento' => $evento
-        ]
-    );
-}
-#[Route(
-    '/borrar/{id}',
-    name: 'admin_evento_borrar',
-    requirements: ['id' => '\d+']
-)]
-public function borrar(
-    int $id,
-    EventoRepository $eventoRepository,
-    EntityManagerInterface $entityManager
-): Response
-{
-    $evento = $eventoRepository->find($id);
+    #[Route(
+        '/{id}/inscriptos/{usuarioId}/borrar',
+        name: 'admin_evento_inscripto_borrar',
+        requirements: ['id' => '\d+', 'usuarioId' => '\d+'],
+        methods: ['POST']
+    )]
+    public function borrarInscripto(
+        int $id,
+        int $usuarioId,
+        Request $request,
+        EventoRepository $eventoRepository,
+        UsuarioRepository $usuarioRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $evento = $eventoRepository->find($id);
+        $usuario = $usuarioRepository->find($usuarioId);
 
-    if (!$evento) {
-        throw $this->createNotFoundException(
-            'No existe el evento solicitado.'
+        if (!$evento || !$usuario) {
+            throw $this->createNotFoundException(
+                'Evento o usuario no encontrado.'
+            );
+        }
+
+        $tokenId = 'borrar_inscripto_' . $evento->getId() . '_' . $usuario->getId();
+
+        if (!$this->isCsrfTokenValid($tokenId, $request->request->get('_token'))) {
+            $this->addFlash('danger', 'Token CSRF inválido.');
+
+            return $this->redirectToRoute(
+                'admin_evento_inscriptos',
+                ['id' => $evento->getId()]
+            );
+        }
+
+        $evento->removeUsuario($usuario);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            sprintf(
+                'El usuario %s %s fue quitado del evento.',
+                $usuario->getNombre(),
+                $usuario->getApellido()
+            )
+        );
+
+        return $this->redirectToRoute(
+            'admin_evento_inscriptos',
+            ['id' => $evento->getId()]
         );
     }
 
-    $entityManager->remove($evento);
+    #[Route(
+        '/borrar/{id}',
+        name: 'admin_evento_borrar',
+        requirements: ['id' => '\d+']
+    )]
+    public function borrar(
+        int $id,
+        EventoRepository $eventoRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $evento = $eventoRepository->find($id);
 
-    $entityManager->flush();
+        if (!$evento) {
+            throw $this->createNotFoundException(
+                'No existe el evento solicitado.'
+            );
+        }
 
-    return $this->render(
-        'admin/evento/borrar.html.twig',
-        [
-            'evento' => $evento
-        ]
-    );
-}
+        $entityManager->remove($evento);
+        $entityManager->flush();
+
+        return $this->render(
+            'admin/evento/borrar.html.twig',
+            [
+                'evento' => $evento
+            ]
+        );
+    }
+
     #[Route(
         '/nuevo',
         name: 'admin_evento_nuevo',
@@ -123,5 +175,4 @@ public function borrar(
             ]
         );
     }
- 
 }

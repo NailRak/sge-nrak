@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Usuario;
+use App\Entity\Evento;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -40,4 +41,13 @@ class UsuarioRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function removeEvento(Evento $evento): static
+{
+    if ($this->evento->removeElement($evento)) {
+        // si la relación es ManyToMany bidireccional y el dueño es Usuario,
+        // no hace falta tocar el otro lado aquí porque Evento::removeUsuario()
+        // ya llama a $usuario->removeEvento($this)
+    }
+    return $this;
+}
 }

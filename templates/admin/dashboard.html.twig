@@ -1,12 +1,112 @@
-{% extends 'admin/layout-admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block content %}
+{% block title %}
+    Panel de Administración
+{% endblock %}
 
-<table>
-    {% for disertante in diseratantes %}
-        <tr>
-            <td>{{ disertante.nombre }}</td>
-        </tr>
-    {% endfor %}
-</table>
+{% block admin_body %}
+
+{# ===== CABECERA ===== #}
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div>
+        <h1 class="text-2xl font-semibold text-slate-900">
+            Panel de Administración
+        </h1>
+        <p class="text-sm text-slate-500 mt-1">
+            Resumen general del sistema · SGE Nrak
+        </p>
+    </div>
+    <span class="text-xs text-slate-400 bg-white border border-slate-200 px-3 py-1.5 rounded-md">
+        Actualizado hoy 18:30
+    </span>
+</div>
+
+{# ===== MÉTRICAS ===== #}
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+
+    <div class="bg-white border border-slate-200 rounded-xl p-5">
+        <p class="text-xs uppercase tracking-wide text-slate-500 font-medium">Eventos</p>
+        <p class="text-3xl font-semibold text-slate-900 mt-2">24</p>
+        <p class="text-xs text-emerald-600 font-medium mt-2">+3 este mes</p>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-xl p-5">
+        <p class="text-xs uppercase tracking-wide text-slate-500 font-medium">Disertantes</p>
+        <p class="text-3xl font-semibold text-slate-900 mt-2">12</p>
+        <p class="text-xs text-emerald-600 font-medium mt-2">+2 este mes</p>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-xl p-5">
+        <p class="text-xs uppercase tracking-wide text-slate-500 font-medium">Inscriptos</p>
+        <p class="text-3xl font-semibold text-slate-900 mt-2">347</p>
+        <p class="text-xs text-emerald-600 font-medium mt-2">+48 esta semana</p>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-xl p-5">
+        <p class="text-xs uppercase tracking-wide text-slate-500 font-medium">Ocupación</p>
+        <p class="text-3xl font-semibold text-slate-900 mt-2">78%</p>
+        <div class="mt-3 w-full bg-slate-100 rounded-full h-1.5">
+            <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 78%"></div>
+        </div>
+    </div>
+
+</div>
+
+{# ===== ACCESOS RÁPIDOS ===== #}
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+    <a href="{{ path('admin_evento_nuevo') }}"
+       class="group bg-white border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/40 rounded-xl p-4 transition-colors duration-150 flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-emerald-600">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-slate-800">Nuevo evento</p>
+            <p class="text-xs text-slate-500">Crear evento</p>
+        </div>
+    </a>
+
+    <a href="{{ path('admin_disertante_nuevo') }}"
+       class="group bg-white border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/40 rounded-xl p-4 transition-colors duration-150 flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-emerald-600">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+            </svg>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-slate-800">Nuevo disertante</p>
+            <p class="text-xs text-slate-500">Registrar disertante</p>
+        </div>
+    </a>
+
+    <a href="{{ path('admin_evento_listar') }}"
+       class="group bg-white border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/40 rounded-xl p-4 transition-colors duration-150 flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-emerald-600">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Z" />
+            </svg>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-slate-800">Ver eventos</p>
+            <p class="text-xs text-slate-500">Listado completo</p>
+        </div>
+    </a>
+
+    <a href="{{ path('admin_disertante_listar') }}"
+       class="group bg-white border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/40 rounded-xl p-4 transition-colors duration-150 flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-emerald-600">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+            </svg>
+        </div>
+        <div>
+            <p class="text-sm font-medium text-slate-800">Ver disertantes</p>
+            <p class="text-xs text-slate-500">Listado completo</p>
+        </div>
+    </a>
+
+</div>
+
 {% endblock %}

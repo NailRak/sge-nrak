@@ -1,46 +1,133 @@
-
 {% extends 'frontend/layout.html.twig' %}
 
-{% block title %}Eventos{% endblock %}
-
-
-{% block body %}
+{% block title %}
+    {{ evento.titulo }} | Detalle del evento
+{% endblock %}
 
 {% block contenido %}
 
+<div class="max-w-4xl mx-auto">
 
-{{ evento.descripcion|slice(0,150) }}
-<div>
-    <strong>Fecha:</strong>
-    {{ evento.fecha|date('d/m/Y') }}
-</div>
-
-<div>
-    <strong>Hora:</strong>
-    
-    {{ evento.horaFinalizacion|date('H:i') }}
-</div>
-
-<div>
-    <strong>Idioma:</strong>
-    {{ evento.idioma }}
-</div>
-
-<div>
-    <strong>Disertante:</strong>
-    <a href="{{ path('app_disertante_detalle', {'id': evento.disertante.id}) }}">
-    {{ evento.disertante.nombre }}
-</a>
-    <br>
-    {{ evento.disertante.biografia|raw }}
-
-</div>
-
-<div class="mt-4">
-    <a href="{{ path('evento_disponibilidad', {'id': evento.id}) }}" class="btn btn-primary">
-        <i class="fas fa-check-circle"></i> Ver Disponibilidad y Cupos
+    {# ===== BOTÓN VOLVER ===== #}
+    <a href="javascript:history.back()"
+       class="inline-flex items-center gap-2 text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 px-4 py-2 rounded-lg transition-colors duration-150 mb-6">
+        {# Icono oficial: arrow-left #}
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+        Volver
     </a>
+
+    {# ===== TARJETA PRINCIPAL ===== #}
+    <article class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+
+        {# Cabecera #}
+        <div class="px-6 py-5 border-b border-slate-200 bg-slate-50/50">
+            <div class="flex items-center gap-1.5 text-xs font-semibold tracking-widest text-emerald-700 uppercase mb-2">
+                Detalle del evento
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-semibold text-slate-900">
+                {{ evento.titulo }}
+            </h1>
+        </div>
+
+        {# Cuerpo #}
+        <div class="p-6 space-y-6">
+
+            {# Descripción corta #}
+            <div class="text-base text-slate-700 leading-relaxed">
+                {{ evento.descripcion|slice(0, 150) }}{% if evento.descripcion|length > 150 %}...{% endif %}
+            </div>
+
+            {# Datos del evento en Grid #}
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+                {# Fecha #}
+                <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 flex items-start gap-3">
+                    {# Icono oficial: calendar #}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-emerald-600 shrink-0">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                    </svg>
+                    <div>
+                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Fecha</p>
+                        <p class="text-sm font-semibold text-slate-900 mt-0.5">{{ evento.fecha|date('d/m/Y') }}</p>
+                    </div>
+                </div>
+
+                {# Hora #}
+                <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 flex items-start gap-3">
+                    {# Icono oficial: clock #}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-emerald-600 shrink-0">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    <div>
+                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Hora</p>
+                        <p class="text-sm font-semibold text-slate-900 mt-0.5">{{ evento.horaFinalizacion|date('H:i') }} hs</p>
+                    </div>
+                </div>
+
+                {# Idioma #}
+                <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 flex items-start gap-3">
+                    {# Icono oficial: language #}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-emerald-600 shrink-0">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
+                    </svg>
+                    <div>
+                        <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Idioma</p>
+                        <p class="text-sm font-semibold text-slate-900 mt-0.5">{{ evento.idioma }}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            {# Disertante #}
+            {% if evento.disertante %}
+                <div class="border-t border-slate-200 pt-6">
+                    <h2 class="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                        {# Icono oficial: user #}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-slate-400">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        Sobre el disertante
+                    </h2>
+
+                    <div class="bg-emerald-50/50 border border-emerald-100 rounded-xl p-5">
+                        <a href="{{ path('app_disertante_detalle', {'id': evento.disertante.id}) }}"
+                           class="inline-flex items-center gap-1.5 text-base font-semibold text-emerald-700 hover:text-emerald-800 hover:underline mb-3">
+                            {{ evento.disertante.nombre }} {{ evento.disertante.apellido }}
+                            {# Icono oficial: arrow-right #}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                            </svg>
+                        </a>
+                        
+                        {% if evento.disertante.biografia %}
+                            <div class="text-sm text-slate-600 leading-relaxed">
+                                {{ evento.disertante.biografia|raw }}
+                            </div>
+                        {% else %}
+                            <p class="text-sm text-slate-500 italic">Biografía no disponible.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {# Botón de Disponibilidad #}
+            <div class="pt-6 border-t border-slate-200 flex justify-end">
+                <a href="{{ path('evento_disponibilidad', {'id': evento.id}) }}"
+                   class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white text-sm font-medium px-5 py-2.5 rounded-lg shadow-sm transition-colors duration-150">
+                    {# Icono oficial: check-circle #}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    Ver disponibilidad y cupos
+                </a>
+            </div>
+
+        </div>
+
+    </article>
+
 </div>
-{% endblock %}
 
 {% endblock %}

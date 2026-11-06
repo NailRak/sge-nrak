@@ -1,15 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'frontend/layout.html.twig' %}
 
 {% block title %}
-    Ingreso Administrador
+    Ingreso Administrador | Eventos
 {% endblock %}
 
-{# El login no muestra la navbar del admin #}
-{% block header %}{% endblock %}
+{% block contenido %}
 
-{% block body %}
-
-<div class="min-h-screen flex items-center justify-center bg-slate-50 px-4 sm:px-6 lg:px-8 py-10">
+<div class="min-h-[70vh] flex items-center justify-center py-10">
     <div class="w-full max-w-md">
 
         {# ===== TARJETA ===== #}

@@ -10,18 +10,18 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class DefaultController extends AbstractController
 {
-    // #[Route(
-    //     '/sitio/{pagina}',
-    //     name: 'app_estatica',
-    //     defaults: ['pagina' => 'patrocinadores'],
-    //     requirements: [
-    //         'pagina' => 'patrocinadores|privacidad|condiciones|licencia'
-    //     ]
-    // )]
-    // public function estatica(string $pagina): Response
-    // {
-    //     return $this->render('estatica/' . $pagina . '.html.twig');
-    // }
+     #[Route(
+        '/sitio/{pagina}',
+        name: 'app_estatica',
+       defaults: ['pagina' => 'patrocinadores'],
+        requirements: [
+             'pagina' => 'patrocinadores|privacidad|condiciones|licencia'
+         ]
+     )]
+     public function estatica(string $pagina): Response
+     {
+         return $this->render('estatica/' . $pagina . '.html.twig');
+     }
     #[Route('/', name: 'portada')]
     public function portada(EntityManagerInterface $em): Response
     {

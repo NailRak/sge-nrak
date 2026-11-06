@@ -1,12 +1,36 @@
-{% extends 'base.html.twig' %}
+{% extends 'frontend/layout.html.twig' %}
 
 {% block title %}Condiciones de uso{% endblock %}
 
-{% block body %}
-    <h1>Condiciones de uso</h1>
+{% block contenido %}
 
-    <p>
-        En esta sección se detallarán las condiciones generales para el uso
-        del sitio web y la participación en los eventos publicados.
-    </p>
+<div class="max-w-3xl mx-auto my-8">
+    <div class="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-sm">
+        
+        {# Cabecera #}
+        <div class="mb-6 pb-5 border-b border-slate-100">
+            <div class="flex items-center gap-1.5 text-xs font-semibold tracking-widest text-emerald-700 uppercase mb-2">
+                Información legal
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-semibold text-slate-900">
+                Condiciones de uso
+            </h1>
+        </div>
+
+        {# Contenido #}
+        <div class="text-slate-600 text-sm leading-relaxed space-y-4">
+            <p>
+                En esta sección se detallarán las condiciones generales para el uso
+                del sitio web y la participación en los eventos publicados.
+            </p>
+            <p>
+                El acceso y uso de este sitio implica la aceptación plena de las presentes condiciones. 
+                Nos reservamos el derecho de modificar estos términos en cualquier momento para adaptarlos 
+                a novedades legislativas o cambios en el servicio.
+            </p>
+        </div>
+
+    </div>
+</div>
+
 {% endblock %}

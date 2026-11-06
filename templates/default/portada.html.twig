@@ -114,12 +114,39 @@
                             <span>{{ evento.duracion }} min</span>
                         </li>
                     {% endif %}
-                    {% if evento.capacidad > 0 %}
-                        <li class="flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-slate-400 shrink-0">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-                            </svg>
-                            <span>{{ evento.usuarios|length }} / {{ evento.capacidad }} inscriptos</span>
+                                     {% if evento.capacidad > 0 %}
+                        {% set inscriptos = evento.usuarios|length %}
+                        {% set disponibles = evento.capacidad - inscriptos %}
+                        
+                        <li class="pt-3 mt-3 border-t border-slate-100">
+                            <div class="flex items-center justify-between text-xs font-medium mb-1.5">
+                                <span class="text-slate-600 flex items-center gap-1.5">
+                                    {# Icono oficial: ticket #}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-slate-400">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
+                                    </svg>
+                                    Disponibilidad
+                                </span>
+                                
+                                {# ACÁ USAMOS EL MENSAJE DEL SERVICIO #}
+                                {% if disponibles > 0 %}
+                                    <span class="text-emerald-700">Quedan {{ disponibles }}</span>
+                                {% else %}
+                                    <span class="text-red-600">Completo</span>
+                                {% endif %}
+                            </div>
+                            
+                            {# Barra de progreso #}
+                            <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden mb-2">
+                                <div class="h-1.5 rounded-full {% if disponibles > 0 %}bg-emerald-500{% else %}bg-red-500{% endif %}" 
+                                     style="width: {{ (inscriptos / evento.capacidad * 100)|round }}%">
+                                </div>
+                            </div>
+                            
+                            {# Mensaje del servicio #}
+                            <p class="text-[11px] text-slate-500 bg-slate-50 border border-slate-100 rounded p-2 italic">
+                                {{ disponibles > 0 ? 'El evento tiene ' ~ disponibles ~ ' cupos disponibles' : 'El evento está completo' }}
+                            </p>
                         </li>
                     {% endif %}
                 </ul>

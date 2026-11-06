@@ -1,13 +1,36 @@
-{% extends 'base.html.twig' %}
+{% extends 'frontend/layout.html.twig' %}
 
 {% block title %}Patrocinadores{% endblock %}
 
-{% block body %}
-    <h1>Patrocinadores</h1>
+{% block contenido %}
 
-    <p>
-        En esta sección se mostrará información sobre las instituciones,
-        empresas u organizaciones que acompañan los eventos publicados
-        en el sistema.
-    </p>
+<div class="max-w-3xl mx-auto my-8">
+    <div class="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-sm">
+        
+        {# Cabecera #}
+        <div class="mb-6 pb-5 border-b border-slate-100">
+            <div class="flex items-center gap-1.5 text-xs font-semibold tracking-widest text-emerald-700 uppercase mb-2">
+                Instituciones
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-semibold text-slate-900">
+                Patrocinadores
+            </h1>
+        </div>
+
+        {# Contenido #}
+        <div class="text-slate-600 text-sm leading-relaxed space-y-4">
+            <p>
+                En esta sección se mostrará información sobre las instituciones,
+                empresas u organizaciones que acompañan los eventos publicados
+                en el sistema.
+            </p>
+            <p>
+                Gracias al apoyo de nuestros patrocinadores, podemos llevar adelante 
+                conferencias y encuentros de alta calidad de forma accesible para toda la comunidad.
+            </p>
+        </div>
+
+    </div>
+</div>
+
 {% endblock %}
